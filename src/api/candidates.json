@@ -8,4 +8,23 @@
   "name": "John Doe",
   "step": "Entrevista inicial",
   "comments": ""
-}]
+},
+{
+  "id": "asd",
+  "name": "Pepe Doe",
+  "step": "Oferta",
+  "comments": ""
+},
+{
+  "id": "ret",
+  "name": "Ramon Doe",
+  "step": "Rechazo",
+  "comments": ""
+},
+{
+  "id": "lali",
+  "name": "Lali Doe",
+  "step": "Entrevista inicial",
+  "comments": ""
+}
+]
