@@ -1,5 +1,4 @@
 .container {
-  background-color: lightblue;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -16,4 +15,11 @@
   margin: 15px;
   border-radius: 4px; 
   font-weight: 550;
+}
+
+.for_light_theme{
+  background-color: lightblue;
+}
+.for_dark_theme{
+  background-color: #fafafa;
 }

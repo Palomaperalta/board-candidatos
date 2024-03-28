@@ -1,8 +1,26 @@
 import React from "react";
 
+import {StepType} from "../types/candidate";
+
 import styles from "./Candidate.module.scss";
 
-function Candidate({id, nombre, comments, step, handleForwardClick, handleBackwardsClick}: any) {
+interface CandidateProps {
+  id: string;
+  nombre: string;
+  comments: string;
+  step: StepType;
+  handleForwardClick: (id: string) => void;
+  handleBackwardsClick: (id: string) => void;
+}
+
+function Candidate({
+  id,
+  nombre,
+  comments,
+  step,
+  handleForwardClick,
+  handleBackwardsClick,
+}: CandidateProps) {
   return (
     <div className={styles.candidatewrapper}>
       <div className={styles.candidateinfo}>

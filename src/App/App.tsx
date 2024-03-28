@@ -1,29 +1,34 @@
 import React, {useState, useEffect} from "react";
 
-import logo from "../assets/logo.png";
+import DarkMode from "../components/DarkMode";
+import {Candidate} from "../types/candidate";
 import InterviewStep from "../components/InterviewStep";
 import api from "../api/index";
 
 import styles from "./App.module.scss";
-import {interviewSteps} from "./../constants/constants";
 import Modal from "./../components/Modal";
 
 function App() {
-  const [candidates, setCandidates] = useState<any>([]);
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [show, setShow] = useState(false);
+  const [theme, setTheme] = React.useState("light");
 
   useEffect(() => {
-    api.candidates.list().then((apicandidates: any) => {
+    api.candidates.list().then((apicandidates: Candidate[]) => {
       setCandidates(apicandidates);
     });
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div
+      className={`${styles.container} ${
+        theme === "light" ? styles.for_light_theme : styles.for_dark_theme
+      }`}
+    >
       <InterviewStep
         candidates={candidates}
         setCandidates={setCandidates}
-        stepFilter={interviewSteps.entrevistaInicial}
+        stepFilter="Entrevista inicial"
         title="Entrevista Inicial"
       >
         <button className={styles.buttoncandidato} onClick={() => setShow(true)}>
@@ -45,7 +50,7 @@ function App() {
       <InterviewStep
         candidates={candidates}
         setCandidates={setCandidates}
-        stepFilter="Asignacion"
+        stepFilter="Asignación"
         title="Asignación"
       />
       <InterviewStep
@@ -59,11 +64,12 @@ function App() {
         show={show}
         title="Agregar candidato"
         onClose={() => setShow(false)}
-        onSubmit={(candidato: any) => {
+        onSubmit={(candidato: Candidate) => {
           setCandidates([...candidates, candidato]);
           setShow(false);
         }}
       />
+      <DarkMode setTheme={setTheme} theme={theme} />
     </div>
   );
 }

@@ -1,9 +1,19 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import {useState} from "react";
+
+import {Candidate} from "../types/candidate";
 
 import styles from "./Modal.module.scss";
 
-const Modal = ({show, onClose, onSubmit, title, children}: any) => {
+interface ModalProps {
+  show: boolean;
+  onClose: () => void;
+  onSubmit: (candidato: Candidate) => void;
+  title: string;
+  children?: ReactNode;
+}
+
+const Modal = ({show, onClose, onSubmit, title, children}: ModalProps) => {
   const [username, setUsername] = useState("");
   const [comments, setComments] = useState("");
 

@@ -1,29 +1,46 @@
-import React from "react";
+import React, {ReactNode} from "react";
+
+import {Candidate as CandidateType, StepType} from "../types/candidate";
 
 import styles from "./InterviewStep.module.scss";
 import Candidate from "./Candidate";
-import {interviewSteps} from "./../constants/constants";
 
-function InterviewStep({title, candidates, setCandidates, stepFilter, children}: any) {
-  function nextInterviewStep(step: any) {
+interface InterviewStepProps {
+  title: string;
+  candidates: CandidateType[];
+  setCandidates: React.Dispatch<React.SetStateAction<CandidateType[]>>;
+  stepFilter: StepType;
+  children?: ReactNode;
+}
+
+function InterviewStep({
+  title,
+  candidates,
+  setCandidates,
+  stepFilter,
+  children,
+}: InterviewStepProps) {
+  function nextInterviewStep(step: StepType) {
     switch (step) {
-      case interviewSteps.entrevistaInicial:
+      case "Entrevista inicial":
         return "Entrevista técnica";
       case "Entrevista técnica":
         return "Oferta";
       case "Oferta":
-        return "Asignacion";
-      case "Asignacion":
+        return "Asignación";
+      case "Asignación":
         return "Rechazo";
+      default:
+        return "Entrevista inicial";
     }
   }
 
-  const handleForwardClick = (id: any) => {
-    const updatedCandidates = candidates.map((candidate: any) => {
+  const handleForwardClick = (id: string) => {
+    const updatedCandidates = candidates.map((candidate: CandidateType) => {
       if (candidate.id === id) {
         return {
           ...candidate,
-          step: nextInterviewStep(candidate.step),
+          step: nextInterviewStep(candidate.step) as StepType,
         };
       }
 
@@ -33,12 +50,12 @@ function InterviewStep({title, candidates, setCandidates, stepFilter, children}:
     setCandidates(updatedCandidates);
   };
 
-  const handleBackwardsClick = (id: any) => {
-    const updatedCandidates = candidates.map((candidate: any) => {
+  const handleBackwardsClick = (id: string) => {
+    const updatedCandidates = candidates.map((candidate: CandidateType) => {
       if (candidate.id === id) {
         return {
           ...candidate,
-          step: previousInterviewStep(candidate.step),
+          step: previousInterviewStep(candidate.step) as StepType,
         };
       }
 
@@ -48,16 +65,18 @@ function InterviewStep({title, candidates, setCandidates, stepFilter, children}:
     setCandidates(updatedCandidates);
   };
 
-  function previousInterviewStep(step: any) {
+  function previousInterviewStep(step: StepType) {
     switch (step) {
-      case interviewSteps.entrevistaTecnica:
+      case "Entrevista técnica":
         return "Entrevista inicial";
       case "Oferta":
         return "Entrevista técnica";
-      case "Asignacion":
+      case "Asignación":
         return "Oferta";
       case "Rechazo":
-        return "Asignacion";
+        return "Asignación";
+      default:
+        return "Entrevista inicial";
     }
   }
 
@@ -65,8 +84,8 @@ function InterviewStep({title, candidates, setCandidates, stepFilter, children}:
     <div className={styles.interviewstep}>
       <h2>{title}</h2>
       {candidates
-        .filter((candidate: any) => candidate.step === stepFilter)
-        .map((candidate: any) => {
+        .filter((candidate: CandidateType) => candidate.step === stepFilter)
+        .map((candidate: CandidateType) => {
           return (
             <Candidate
               key={candidate.id}
