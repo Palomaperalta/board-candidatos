@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 import DarkMode from "../components/DarkMode";
-import {Candidate} from "../types/candidate";
+import {Candidate, ThemeType} from "../types/candidate";
 import InterviewStep from "../components/InterviewStep";
 import api from "../api/index";
 
@@ -11,7 +11,7 @@ import Modal from "./../components/Modal";
 function App() {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [show, setShow] = useState(false);
-  const [theme, setTheme] = React.useState("light");
+  const [theme, setTheme] = React.useState<ThemeType>("light");
 
   useEffect(() => {
     api.candidates.list().then((apicandidates: Candidate[]) => {

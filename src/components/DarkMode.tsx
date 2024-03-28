@@ -1,10 +1,11 @@
 import React from "react";
 
 import styles from "../components/DarkMode.module.scss";
+import {ThemeType} from "../types/candidate";
 
 interface DarkModeProps {
   theme: string;
-  setTheme: React.Dispatch<React.SetStateAction<string>>;
+  setTheme: React.Dispatch<React.SetStateAction<ThemeType>>;
 }
 
 function DarkMode({theme, setTheme}: DarkModeProps) {

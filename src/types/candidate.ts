@@ -11,3 +11,5 @@ export interface Candidate {
   step: StepType;
   comments: string;
 }
+
+export type ThemeType = "light" | "dark";
